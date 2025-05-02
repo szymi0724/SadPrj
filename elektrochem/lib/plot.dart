@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:elektrochem/matrycowanie.dart';
 import 'package:elektrochem/klas.dart';
-import 'package:elektrochem/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 //import 'package:fl_chart/fl_chart.dart';
@@ -32,7 +31,7 @@ class _PloterState extends State<Ploter> {
   Widget build(BuildContext context) {
     final String pathI = widget.path;
 
-    final List<DDItem> DDVX = xaxis(pathI, "\t");
+    final List<DDItem> dDVX = xaxis(pathI, "\t");
 
     if (pathI == "Brak") {
       return Text("Nothing loaded", textAlign: TextAlign.left);
@@ -68,7 +67,7 @@ class _PloterState extends State<Ploter> {
                       isExpanded: true,
                       iconSize: 30.0,
                       style: TextStyle(color: Colors.blue),
-                      items: DDVX.map((DDItem ddvx) {
+                      items: dDVX.map((DDItem ddvx) {
                         return DropdownMenuItem<int>(
                           value: ddvx.value,
                           child: Text(ddvx.label),
@@ -98,7 +97,7 @@ class _PloterState extends State<Ploter> {
                       isExpanded: true,
                       iconSize: 30.0,
                       style: TextStyle(color: Colors.blue),
-                      items: DDVX.map((DDItem ddvx) {
+                      items: dDVX.map((DDItem ddvx) {
                         return DropdownMenuItem<int>(
                           value: ddvx.value,
                           child: Text(ddvx.label),
@@ -119,7 +118,7 @@ class _PloterState extends State<Ploter> {
                   SizedBox(height: 30, width: 150),
                   TextButton(
                     onPressed: () async {
-                      final result = await showDialog<Map<String, int>>(
+                      final result = await showDialog<Map<String, double>>(
                         context: context,
                         builder: (context) {
                           return SettingsDialog(
@@ -133,10 +132,10 @@ class _PloterState extends State<Ploter> {
 
                       if (result != null) {
                         setState(() {
-                          pset.minx = result['minX']!;
-                          pset.maxx = result['maxX']!;
-                          pset.miny = result['minY']!;
-                          pset.maxy = result['maxY']!;
+                          pset.minx = result['minX']!.toDouble();
+                          pset.maxx = result['maxX']!.toDouble();
+                          pset.miny = result['minY']!.toDouble();
+                          pset.maxy = result['maxY']!.toDouble();
                         });
                       }
                     },
@@ -222,10 +221,10 @@ class _GraferState extends State<Grafer> {
 }
 
 class SettingsDialog extends StatefulWidget {
-  final int minX;
-  final int maxX;
-  final int minY;
-  final int maxY;
+  final double minX;
+  final double maxX;
+  final double minY;
+  final double maxY;
 
   const SettingsDialog(
       {super.key,
@@ -263,10 +262,10 @@ class _SettingsDialogState extends State<SettingsDialog> {
   }
 
   void _submit() {
-    final int? minX = int.tryParse(_minXController.text);
-    final int? maxX = int.tryParse(_maxXController.text);
-    final int? minY = int.tryParse(_minXController.text);
-    final int? maxY = int.tryParse(_maxXController.text);
+    final double? minX = double.tryParse(_minXController.text);
+    final double? maxX = double.tryParse(_maxXController.text);
+    final double? minY = double.tryParse(_minXController.text);
+    final double? maxY = double.tryParse(_maxXController.text);
 
     if (minX == null ||
         maxX == null ||

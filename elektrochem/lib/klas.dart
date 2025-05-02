@@ -13,10 +13,10 @@ class DDItem {
 }
 
 class PlotSet {
-  int minx;
-  int maxx;
-  int miny;
-  int maxy;
+  double minx;
+  double maxx;
+  double miny;
+  double maxy;
   String ptype;
   int cxnum;
   int cynum;

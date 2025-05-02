@@ -52,7 +52,7 @@ int checker(List a, int b) {
     }
     //z++;
   }
-  if (c == false) {
+  if (!c) {
     return 0;
   } else {
     return 1;
@@ -85,16 +85,18 @@ List<DDItem> xaxis(String text, String paz) {
   }
 }
 
-List<Data> ogra(List<Data> lis, int minx, int maxx, int miny, int maxy, int z) {
+List<Data> ogra(List<Data> lis, double minx, double maxx, double miny, double maxy, int z) {
   var ret = <Data>[];
-  int j = 0;
+  minx = minx-0.0001;
+  maxx = maxx+0.0001;
+  miny = miny-0.0001;
+  maxy = maxy+0.0001;
   for (var i = 0; i < z - 1; i++) {
-    if (lis[i].x < minx) {
-      if (lis[i].x > maxx) {
-        if (lis[i].y < miny) {
-          if (lis[i].y > miny) {
-            ret.add(Data(lis[j].x, lis[j].y));
-            j++;
+    if (lis[i].x > minx) {
+      if (lis[i].x < maxx) {
+        if (lis[i].y > miny) {
+          if (lis[i].y < maxy) {
+            ret.add(Data(lis[i].x, lis[i].y));
           }
         }
       }
