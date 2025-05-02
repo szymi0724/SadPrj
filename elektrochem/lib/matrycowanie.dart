@@ -59,36 +59,36 @@ int checker(List a, int b) {
   }
 }
 
-List<DDItem> Xaxis(String _text, String _paz) {
-  if (_text == "Brak") {
+List<DDItem> xaxis(String text, String paz) {
+  if (text == "Brak") {
     List<DDItem> k = [];
     return k;
   } else {
-    final file = File(_text);
-    String _textt = file.readAsStringSync();
-    List _rozdzia = _textt.split('\n');
-    int _b = _rozdzia[0].split(_paz).length;
-    int _h = checker(_rozdzia[0].split(_paz), _b);
-    List _zez = _rozdzia[0].split(_paz);
-    List<DDItem> _mat = [];
-    if (_h == 1) {
-      for (var _z = 0; _z < _b; _z++) {
-        _mat.add(DDItem(label: _zez[_z], value: _z));
+    final file = File(text);
+    String textt = file.readAsStringSync();
+    List rozdzia = textt.split('\n');
+    int b = rozdzia[0].split(paz).length;
+    int h = checker(rozdzia[0].split(paz), b);
+    List zez = rozdzia[0].split(paz);
+    List<DDItem> mat = [];
+    if (h == 1) {
+      for (var z0 = 0; z0 < b; z0++) {
+        mat.add(DDItem(label: zez[z0], value: z0));
       }
     } else {
-      for (var z = 0; z < _b; z++) {
-        int _u = z + 1;
-        _mat.add(DDItem(label: ("Col $_u"), value: z));
+      for (var z = 0; z < b; z++) {
+        int u = z + 1;
+        mat.add(DDItem(label: ("Col $u"), value: z));
       }
     }
-    return _mat;
+    return mat;
   }
 }
 
 List<Data> ogra(List<Data> lis, int minx, int maxx, int miny, int maxy, int z) {
   var ret = <Data>[];
   int j = 0;
-  for (var i = 0; i < z-1; i++) {
+  for (var i = 0; i < z - 1; i++) {
     if (lis[i].x < minx) {
       if (lis[i].x > maxx) {
         if (lis[i].y < miny) {

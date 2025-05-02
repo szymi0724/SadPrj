@@ -32,7 +32,7 @@ class _PloterState extends State<Ploter> {
   Widget build(BuildContext context) {
     final String pathI = widget.path;
 
-    final List<DDItem> DDVX = Xaxis(pathI, "\t");
+    final List<DDItem> DDVX = xaxis(pathI, "\t");
 
     if (pathI == "Brak") {
       return Text("Nothing loaded", textAlign: TextAlign.left);
@@ -44,7 +44,8 @@ class _PloterState extends State<Ploter> {
         (pset.cxnum),
         (pset.cynum),
       );
-      List<Data> plota = ogra(temp1, pset.minx, pset.maxx, pset.miny, pset.maxy, len);
+      List<Data> plota =
+          ogra(temp1, pset.minx, pset.maxx, pset.miny, pset.maxy, len);
       //final List<FlSpot> spots =
       //plota.map((data) => FlSpot(data.x, data.y)).toList();
       return Column(
@@ -60,23 +61,19 @@ class _PloterState extends State<Ploter> {
                     height: 30.0,
                     child: DropdownButton(
                       value: pset.cxnum,
-                      hint:
-                          pset.cxnum == null
-                              ? Text('X axis')
-                              : Text(
-                                pset.cxnum.toString(),
-                                style: TextStyle(color: Colors.blue),
-                              ),
+                      hint: Text(
+                        pset.cxnum.toString(),
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       isExpanded: true,
                       iconSize: 30.0,
                       style: TextStyle(color: Colors.blue),
-                      items:
-                          DDVX.map((DDItem DDVX) {
-                            return DropdownMenuItem<int>(
-                              value: DDVX.value,
-                              child: Text(DDVX.label),
-                            );
-                          }).toList(),
+                      items: DDVX.map((DDItem ddvx) {
+                        return DropdownMenuItem<int>(
+                          value: ddvx.value,
+                          child: Text(ddvx.label),
+                        );
+                      }).toList(),
                       onChanged: (int? newValue) {
                         setState(() {
                           pset.cxnum = newValue!;
@@ -94,23 +91,19 @@ class _PloterState extends State<Ploter> {
                     height: 30.0,
                     child: DropdownButton(
                       value: pset.cynum,
-                      hint:
-                          pset.cynum == null
-                              ? Text('Y axis')
-                              : Text(
-                                pset.cynum.toString(),
-                                style: TextStyle(color: Colors.blue),
-                              ),
+                      hint: Text(
+                        pset.cynum.toString(),
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       isExpanded: true,
                       iconSize: 30.0,
                       style: TextStyle(color: Colors.blue),
-                      items:
-                          DDVX.map((DDItem DDVX) {
-                            return DropdownMenuItem<int>(
-                              value: DDVX.value,
-                              child: Text(DDVX.label),
-                            );
-                          }).toList(),
+                      items: DDVX.map((DDItem ddvx) {
+                        return DropdownMenuItem<int>(
+                          value: ddvx.value,
+                          child: Text(ddvx.label),
+                        );
+                      }).toList(),
                       onChanged: (int? newValue) {
                         setState(() {
                           pset.cynum = newValue!;
@@ -147,7 +140,6 @@ class _PloterState extends State<Ploter> {
                         });
                       }
                     },
-
                     child: Text('Open Settings'),
                   ),
                 ],
@@ -179,14 +171,15 @@ class _GraferState extends State<Grafer> {
   Widget build(BuildContext context) {
     ZoomPanBehavior zoomPanBehavior;
 
-    zoomPanBehavior = ZoomPanBehavior(enableMouseWheelZooming : true);
+    zoomPanBehavior = ZoomPanBehavior(enableMouseWheelZooming: true);
 
     FlutterView view = WidgetsBinding.instance.platformDispatcher.views.first;
 
     // Dimensions in physical pixels (px)
     Size size = view.physicalSize;
     double width = size.width;
-    double height = size.height; //do implementacji kiedyś poprawne wyświetlanie na różnych rozdzielczościach (na razie mi się nie chce)
+    double height = size
+        .height; //do implementacji kiedyś poprawne wyświetlanie na różnych rozdzielczościach (na razie mi się nie chce)
 
     if (widget.a == "Line") {
       return SizedBox(
@@ -234,7 +227,12 @@ class SettingsDialog extends StatefulWidget {
   final int minY;
   final int maxY;
 
-  const SettingsDialog({super.key, required this.minX, required this.maxX, required this.minY, required this.maxY});
+  const SettingsDialog(
+      {super.key,
+      required this.minX,
+      required this.maxX,
+      required this.minY,
+      required this.maxY});
 
   @override
   State<SettingsDialog> createState() => _SettingsDialogState();
@@ -270,14 +268,20 @@ class _SettingsDialogState extends State<SettingsDialog> {
     final int? minY = int.tryParse(_minXController.text);
     final int? maxY = int.tryParse(_maxXController.text);
 
-    if (minX == null || maxX == null || minX >= maxX || minY == null || maxY == null || minY >= maxY) {
+    if (minX == null ||
+        maxX == null ||
+        minX >= maxX ||
+        minY == null ||
+        maxY == null ||
+        minY >= maxY) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Invalid values: min must be < max')),
       );
       return;
     }
 
-    Navigator.pop(context, {'minX': minX, 'maxX': maxX,'minY': minY, 'maxY': maxY});
+    Navigator.pop(
+        context, {'minX': minX, 'maxX': maxX, 'minY': minY, 'maxY': maxY});
   }
 
   @override
@@ -308,30 +312,30 @@ class _SettingsDialogState extends State<SettingsDialog> {
             decoration: InputDecoration(labelText: 'maxY'),
           ),
           DropdownButton(
-            underline: Container(color: const Color.fromARGB(255, 0, 0, 0), width: 10, height: 0.5,),
-                      hint:
-                          pset.ptype == null
-                              ? Text('Type')
-                              : Text(
-                                pset.ptype,
-                                style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                              ),
-                      isExpanded: true,
-                      iconSize: 30.0,
-                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                      items:
-                          ["Line", "Scatter"].map((val3) {
-                            return DropdownMenuItem<String>(
-                              value: val3,
-                              child: Text(val3),
-                            );
-                          }).toList(),
-                      onChanged: (val3) {
-                        setState(() {
-                          pset.ptype = val3!;
-                        });
-                      },
-                    ), 
+            underline: Container(
+              color: const Color.fromARGB(255, 0, 0, 0),
+              width: 10,
+              height: 0.5,
+            ),
+            hint: Text(
+              pset.ptype,
+              style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+            ),
+            isExpanded: true,
+            iconSize: 30.0,
+            style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+            items: ["Line", "Scatter"].map((val3) {
+              return DropdownMenuItem<String>(
+                value: val3,
+                child: Text(val3),
+              );
+            }).toList(),
+            onChanged: (val3) {
+              setState(() {
+                pset.ptype = val3!;
+              });
+            },
+          ),
         ],
       ),
       actions: [
