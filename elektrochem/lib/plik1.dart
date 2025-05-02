@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:elektrochem/plot.dart';
 import 'package:elektrochem/settings.dart';
@@ -19,6 +20,37 @@ class NazwaW extends StatefulWidget {
 
   @override
   State<NazwaW> createState() => _NazwaWState();
+}
+
+String getSupportiveComment() {
+  final comments = [
+    "Świetna robota! Tak trzymaj!",
+    "Jesteś na dobrej drodze 💪",
+    "Każdy krok się liczy – brawo!",
+    "Nie poddawaj się, idzie Ci super!",
+    "Twoje zaangażowanie robi wrażenie!",
+    "Działasz – to najważniejsze!",
+    "Masz to! Wierzę w Ciebie!",
+    "Jesteś bliżej celu niż myślisz!",
+    "Nie ma rzeczy niemożliwych – działaj dalej!",
+    "Twój wysiłek się opłaci!",
+    "Duma mnie rozpiera – super robota!",
+    "Jeszcze chwila i będzie sukces!",
+    "Codziennie jesteś lepszy/a!",
+    "To, co robisz, ma znaczenie!",
+    "Odważny krok naprzód – gratulacje!",
+    "Jesteś inspiracją!",
+    "Nigdy nie przestawaj wierzyć w siebie!",
+    "Z każdym kliknięciem rośniesz w siłę!",
+    "Robisz coś wspaniałego – nie przestawaj!",
+    "Ten wysiłek to inwestycja w lepsze jutro!",
+    "Twoja determinacja to Twoja supermoc!",
+    "Robisz różnicę – kontynuuj to!",
+    "Jesteś niesamowity/a – świat tego potrzebuje!",
+  ];
+
+  final random = Random();
+  return comments[random.nextInt(comments.length)];
 }
 
 class _NazwaWState extends State<NazwaW> {
@@ -88,9 +120,7 @@ class _NazwaWState extends State<NazwaW> {
               // child: Text("Export", style: TextStyle(color: Colors.white)),
               //   ),
               TextButton(
-                onPressed: () async {
-                  setState(() {});
-                },
+                onPressed: () {},
                 child: Text(
                   "Extra",
                   style: TextStyle(color: Colors.white),
@@ -112,7 +142,12 @@ class _NazwaWState extends State<NazwaW> {
               ),
               TextButton(
                 onPressed: () async {
-                  setState(() {});
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            Scaffold(body: Text(getSupportiveComment())),
+                      ));
                 },
                 child: Text("Help", style: TextStyle(color: Colors.white)),
               ),

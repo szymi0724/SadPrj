@@ -85,13 +85,13 @@ List<DDItem> xaxis(String text, String paz) {
   }
 }
 
-List<Data> ogra(List<Data> lis, double minx, double maxx, double miny, double maxy, int z) {
+List<Data> ogra(List<Data> lis, double minx, double maxx, double miny, double maxy) {
   var ret = <Data>[];
   minx = minx-0.0001;
   maxx = maxx+0.0001;
   miny = miny-0.0001;
   maxy = maxy+0.0001;
-  for (var i = 0; i < z - 1; i++) {
+  for (var i = 0; i < lis.length; i++) {
     if (lis[i].x > minx) {
       if (lis[i].x < maxx) {
         if (lis[i].y > miny) {

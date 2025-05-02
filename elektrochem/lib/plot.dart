@@ -44,7 +44,7 @@ class _PloterState extends State<Ploter> {
         (pset.cynum),
       );
       List<Data> plota =
-          ogra(temp1, pset.minx, pset.maxx, pset.miny, pset.maxy, len);
+          ogra(temp1, pset.minx, pset.maxx, pset.miny, pset.maxy);
       //final List<FlSpot> spots =
       //plota.map((data) => FlSpot(data.x, data.y)).toList();
       return Column(
