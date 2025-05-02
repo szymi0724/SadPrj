@@ -26,27 +26,20 @@ String getSupportiveComment() {
   final comments = [
     "Świetna robota! Tak trzymaj!",
     "Jesteś na dobrej drodze 💪",
-    "Każdy krok się liczy – brawo!",
     "Nie poddawaj się, idzie Ci super!",
-    "Twoje zaangażowanie robi wrażenie!",
-    "Działasz – to najważniejsze!",
     "Masz to! Wierzę w Ciebie!",
     "Jesteś bliżej celu niż myślisz!",
     "Nie ma rzeczy niemożliwych – działaj dalej!",
     "Twój wysiłek się opłaci!",
     "Duma mnie rozpiera – super robota!",
     "Jeszcze chwila i będzie sukces!",
-    "Codziennie jesteś lepszy/a!",
     "To, co robisz, ma znaczenie!",
-    "Odważny krok naprzód – gratulacje!",
-    "Jesteś inspiracją!",
     "Nigdy nie przestawaj wierzyć w siebie!",
     "Z każdym kliknięciem rośniesz w siłę!",
     "Robisz coś wspaniałego – nie przestawaj!",
     "Ten wysiłek to inwestycja w lepsze jutro!",
     "Twoja determinacja to Twoja supermoc!",
     "Robisz różnicę – kontynuuj to!",
-    "Jesteś niesamowity/a – świat tego potrzebuje!",
   ];
 
   final random = Random();
@@ -120,7 +113,9 @@ class _NazwaWState extends State<NazwaW> {
               // child: Text("Export", style: TextStyle(color: Colors.white)),
               //   ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {});
+                },
                 child: Text(
                   "Extra",
                   style: TextStyle(color: Colors.white),
@@ -142,12 +137,19 @@ class _NazwaWState extends State<NazwaW> {
               ),
               TextButton(
                 onPressed: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            Scaffold(body: Text(getSupportiveComment())),
-                      ));
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          content: Text(getSupportiveComment()),
+                          actions: [
+                            TextButton(
+                              child: Text("Dzięki!"),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        ),
+                  );
                 },
                 child: Text("Help", style: TextStyle(color: Colors.white)),
               ),
